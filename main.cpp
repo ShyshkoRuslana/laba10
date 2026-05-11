@@ -1,13 +1,16 @@
 #include <iostream>
 #include <thread>
-
+#include <mutex>
 using namespace std;
 int counter=0;
+mutex mtx;
 void work(int thread_id){
+    mtx.lock();
     for (int i = 0; i < 5; ++i) {
         counter += thread_id;
         cout<< "Thread: "<< thread_id << " Counter: " << counter << endl;
     }
+    mtx.unlock();
 }
 int main(){
 
